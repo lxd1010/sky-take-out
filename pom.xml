@@ -24,7 +24,7 @@
         <java.version>17</java.version>
 
         <mybatis.spring>3.0.2</mybatis.spring>
-        <lombok>1.18.28</lombok>
+        <lombok>1.18.34</lombok>
         <fastjson>1.2.76</fastjson>
         <commons.lang>2.6</commons.lang>
         <druid>1.2.15</druid>
@@ -132,4 +132,32 @@
         </dependencies>
     </dependencyManagement>
 
+    <!-- 新增：配置编译插件，覆盖Spring Boot父工程的默认版本 -->
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!-- 升级maven-compiler-plugin到3.14.1，适配JDK 17 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.14.1</version>
+                    <configuration>
+                        <!-- 明确指定JDK版本，和properties中的java.version一致 -->
+                        <source>21</source>
+                        <target>21</target>
+                        <encoding>UTF-8</encoding>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <!-- 全局应用编译插件（所有子模块继承） -->
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.14.1</version>
+            </plugin>
+        </plugins>
+    </build>
 </project>

@@ -15,6 +15,27 @@
         <java.version>17</java.version>
     </properties>
 
+    <!-- 新增：显式配置编译插件，使用父工程的3.14.1版本 -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <!-- 直接复用父工程的版本，也可手动写3.14.1 -->
+                <version>3.14.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>UTF-8</encoding>
+                    <!-- 关键：添加此参数，解决JDK 17的javac内部API兼容问题 -->
+                    <compilerArgs>
+                        <arg>-XDuseUnsharedTable=true</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>
