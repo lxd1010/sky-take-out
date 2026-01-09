@@ -84,11 +84,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         // 设置密码 默认密码为123456
         employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
         // 设置更新时间和创建时间
-        employee.setCreateTime(LocalDateTime.now());
-        employee.setUpdateTime(LocalDateTime.now());
+        // employee.setCreateTime(LocalDateTime.now());
+        // employee.setUpdateTime(LocalDateTime.now());
         // 记录当前创建人和更新人的 id
-        employee.setCreateUser(BaseContext.getCurrentId());
-        employee.setUpdateUser(BaseContext.getCurrentId());
+        // employee.setCreateUser(BaseContext.getCurrentId());
+        // employee.setUpdateUser(BaseContext.getCurrentId());
 
         // 保存到数据库
         employeeMapper.insert(employee);
@@ -116,6 +116,11 @@ public class EmployeeServiceImpl implements EmployeeService {
      */
     @Override
     public void startOrStop(Integer status, long id) {
+
+        // Employee employee = new Employee();
+        // employee.setStatus(status);
+        // employee.setId(id);
+
         Employee employee = Employee.builder()
                 .status(status)
                 .id(id)
@@ -131,9 +136,16 @@ public class EmployeeServiceImpl implements EmployeeService {
      */
     @Override
     public Employee getById(long id) {
-        return employeeMapper.getById(id);
+        Employee employee = employeeMapper.getById(id);
+        employee.setPassword("****");
+        return employee;
     }
-
+    /**
+     * 修改员工
+     *
+     * @param employeeDTO
+     * @return
+     */
     @Override
     public void update(EmployeeDTO employeeDTO) {
         Employee employee = new Employee();

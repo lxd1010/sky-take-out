@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Select;
 import com.sky.entity.DishFlavor;
 
 @Mapper
-public interface DishFlavorMapper {
+public interface  DishFlavorMapper {
 
     /**
      * 批量新增菜品口味
@@ -36,4 +36,6 @@ public interface DishFlavorMapper {
     @Select("select * from dish_flavor where dish_id = #{dishId}")
     List<DishFlavor> getByDishId(Long dishId);
 
+    // 优化之后的删除菜品口味的操作
+    void deleteByDishIds(List<Long> ids);
 }

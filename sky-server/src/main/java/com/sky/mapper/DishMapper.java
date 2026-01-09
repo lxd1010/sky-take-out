@@ -54,7 +54,7 @@ public interface DishMapper {
     /**
      * 删除菜品
      * 
-     * @param dish
+     * @param id
      */
     @Delete("delete from dish where id = #{id}")
     void deleteById(Long id);
@@ -70,7 +70,7 @@ public interface DishMapper {
     /**
      * 根据分类id查询菜品
      * 
-     * @param categoryId
+     * @param dish
      * @return
      */
     List<Dish> list(Dish dish);
@@ -92,4 +92,6 @@ public interface DishMapper {
      */
     Integer countByMap(Map<String, Integer> map);
 
+    // 优化之后的删除菜品操作
+    void deleteByIds(List<Long> ids);
 }

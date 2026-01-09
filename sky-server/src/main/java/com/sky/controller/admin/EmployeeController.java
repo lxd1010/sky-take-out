@@ -122,7 +122,7 @@ public class EmployeeController {
      * @return Result<String>
      */
     @PostMapping("/status/{status}")
-    public Result<String> startOrStop(@PathVariable Integer status, long id) {
+    public Result<String> startOrStop(@PathVariable Integer status, long id) {//status路径参数，所以使用@PathVariable注解
         log.info("员工启用/禁用：{}, {}", status, id);
         employeeService.startOrStop(status, id);
         return Result.success();

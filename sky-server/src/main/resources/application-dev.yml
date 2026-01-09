@@ -5,4 +5,15 @@
 #     port: 3306
 #     database: sky_take_out
 #     username: root
-#     password: sql_1
+#     password: 1010
+#   alioss:
+#     access-key-id:
+#     access-key-secret:
+#     endpoint:
+#     bucket-name:
+#   redis:
+#     host: localhost
+#     port: 6379
+#     password:
+#     timeout: 1000
+#     database: 0

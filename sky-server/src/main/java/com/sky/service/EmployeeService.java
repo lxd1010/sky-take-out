@@ -5,6 +5,7 @@ import com.sky.dto.EmployeeLoginDTO;
 import com.sky.dto.EmployeePageQueryDTO;
 import com.sky.entity.Employee;
 import com.sky.result.PageResult;
+import org.apache.ibatis.annotations.Param;
 
 public interface EmployeeService {
 
@@ -53,6 +54,6 @@ public interface EmployeeService {
      * 
      * @param employeeDTO
      */
-    void update(EmployeeDTO employeeDTO);
+    void update(@Param("employeeDTO") EmployeeDTO employeeDTO);
 
 }

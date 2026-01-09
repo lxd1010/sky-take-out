@@ -100,7 +100,7 @@ public class DishController {
     @PutMapping
     public Result<String> update(@RequestBody DishDTO dishDTO) {
         log.info("更新菜品：{}", dishDTO);
-        dishService.updateWithFlavor(dishDTO);
+        dishService.updateWithFlavor(dishDTO);// 既能修改菜品，也能修改菜品口味
         clearRedis("dish_*");
         return Result.success();
     }

@@ -7,6 +7,12 @@
         values
         (#{name}, #{categoryId}, #{price}, #{image}, #{description}, #{status}, #{createTime}, #{updateTime}, #{createUser}, #{updateUser})
     </insert>
+    <delete id="deleteByIds">
+        delete from dish where in
+        <foreach collection="ids" open="(" close=")" separator="," item="id">
+            #{id}
+        </foreach>
+    </delete>
 
     <select id="pageQuery">
         select d.*, c.name as categoryName from dish d left outer join category c on d.category_id = c.id

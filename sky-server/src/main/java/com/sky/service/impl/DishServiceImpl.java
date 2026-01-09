@@ -47,7 +47,7 @@ public class DishServiceImpl implements DishService {
      * @param dishDTO
      */
     @Override
-    @Transactional // 要么都成功，要么都失败
+    @Transactional // 要么都成功，要么都失败   新增菜品表和口味表两个表。
     public void saveWithFlavor(DishDTO dishDTO) {
         // 保存菜品
         Dish dish = new Dish();
@@ -78,12 +78,12 @@ public class DishServiceImpl implements DishService {
     }
 
     /**
-     * 删除菜品
+     * 删除菜品（批量）
      * 
      * @param ids
      */
     @Override
-    @Transactional // 一致性
+    @Transactional // 一致性（事务注解）
     public void deleteBatch(List<Long> ids) {
         // 判断菜品是否能够删除 是否启用
         for (Long id : ids) {
@@ -101,11 +101,17 @@ public class DishServiceImpl implements DishService {
         }
 
         // 删除菜品
-        for (Long id : ids) {
-            dishMapper.deleteById(id);
-            // 删除菜品口味
-            dishFlavorMapper.deleteByDishId(id);
-        }
+        // for (Long id : ids) {
+        //     dishMapper.deleteById(id);
+        //     // 删除菜品口味
+        //     dishFlavorMapper.deleteByDishId(id);
+        // }
+        // 根据菜品id集合批量删除菜品数据
+        // sql:delete from dish where id in (?,?,?)
+        dishMapper.deleteByIds(ids);
+        // 根据菜品id集合批量删除菜品口味
+        // sql: delete from dish_flavor where dish_id in (?,?,?)
+        dishFlavorMapper.deleteByDishIds(ids);
     }
 
     /**
@@ -136,8 +142,8 @@ public class DishServiceImpl implements DishService {
     @Override
     public void updateWithFlavor(DishDTO dishDTO) {
         // 修改菜品的基本信息
-        Dish dish = new Dish();
-        BeanUtils.copyProperties(dishDTO, dish);
+        Dish dish = new Dish();// 目前只修改菜品信息，口味信息不变
+        BeanUtils.copyProperties(dishDTO, dish);// 复制DTO到菜品信息
         dishMapper.update(dish);
 
         // 删除菜品的口味
@@ -147,7 +153,7 @@ public class DishServiceImpl implements DishService {
         List<DishFlavor> flavors = dishDTO.getFlavors();
         if (flavors != null && flavors.size() > 0) {
             flavors.forEach(flavor -> {
-                flavor.setDishId(dishDTO.getId());
+                flavor.setDishId(dishDTO.getId());// 设置菜品id
             });
             dishFlavorMapper.insertBatch(flavors);
         }

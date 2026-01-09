@@ -44,15 +44,15 @@ public interface EmployeeMapper {
 
     /**
      * 根据主键修改员工信息
-     * 
+     * (包括修改status状态)
      * @param employee
      */
     @AutoFill(value = OperationType.UPDATE)
     void update(Employee employee);
 
     /**
-     * 根据主键查询员工信息
-     * 
+     * 根据主键 id 查询员工信息
+     *
      * @param id
      * @return
      */

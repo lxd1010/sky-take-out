@@ -14,7 +14,7 @@ import com.sky.result.Result;
 
 import lombok.extern.slf4j.Slf4j;
 
-@RestController("adminShopController")
+@RestController("adminShopController")// 为了区分admin和user的相同Shopcontroller
 @RequestMapping("/admin/shop")
 @Slf4j
 public class ShopController {
@@ -43,7 +43,7 @@ public class ShopController {
     @GetMapping("/status")
     public Result<Integer> getShopStatus() {
         Integer status = (Integer) Optional.ofNullable(redisTemplate.opsForValue().get("SHOP_STATUS")).orElse(0);
-        log.info("获取店铺状态: {}", status == 1 ? "营业" : "休息");
+        log.info("管理端获取店铺状态: {}", status == 1 ? "营业" : "休息");
         return Result.success(status);
     }
 

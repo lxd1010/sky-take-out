@@ -39,10 +39,12 @@ public class AutoFillAspect {
      */
     @Before("autoFillPointCut()")
     public void autoFill(JoinPoint joinPoint) {
-        log.info("开始自动填充");
+        log.info("开始公共字段的自动填充...");
         // 获取操作类型
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+        // 从方法上获取@AutoFill注解（这个注解是自定义的，用来标记需要自动填充的方法）
         AutoFill autoFill = signature.getMethod().getAnnotation(AutoFill.class);
+        // 从注解中获取操作类型（INSERT/UPDATE，枚举值）
         OperationType operationType = autoFill.value();
 
         // 获取当前被拦截的方法的参数

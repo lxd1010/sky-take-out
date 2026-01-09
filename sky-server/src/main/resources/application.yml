@@ -18,8 +18,9 @@ spring:
     redis:
       host: 127.0.0.1
       port: 6379
-      password: 123456
       timeout: 3000ms
+#      password: ${sky.redis.password}
+#      database: ${sky.redis.database}
 
 # knife4j配置
 springdoc:
@@ -68,3 +69,8 @@ sky:
     user-secret-key: itcast
     user-ttl: 7200000
     user-token-name: authentication
+#  alioss:
+#    access-key-id: ${sky.alioss.access-key-id}
+#    endpoint: ${sky.alioss.endpoint}
+#    access-key-secret: ${sky.alioss.access-key-secret}
+#    bucket-name: ${sky.alioss.bucket-name}
