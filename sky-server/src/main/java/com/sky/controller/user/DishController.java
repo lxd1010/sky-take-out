@@ -6,6 +6,7 @@ import com.sky.result.Result;
 import com.sky.service.DishService;
 import com.sky.vo.DishVO;
 // import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +16,7 @@ import java.util.List;
 
 @RestController("userDishController")
 @RequestMapping("/user/dish")
-// @Slf4j
+@Slf4j
 public class DishController {
     @Autowired
     private DishService dishService;
@@ -35,7 +36,7 @@ public class DishController {
         // 在redis中查询
         String cacheKey = "dish_" + categoryId;
         List<DishVO> list = (List<DishVO>) redisTemplate.opsForValue().get(cacheKey);
-        if (list != null && list.size() > 0) {
+        if (list != null && !list.isEmpty()) {
             return Result.success(list);
         }
 

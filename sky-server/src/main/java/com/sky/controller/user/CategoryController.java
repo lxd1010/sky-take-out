@@ -17,7 +17,7 @@ public class CategoryController {
     private CategoryService categoryService;
 
     /**
-     * 查询分类
+     * 查询分类：1、菜品分类；2、套餐分类
      * 
      * @param type
      * @return

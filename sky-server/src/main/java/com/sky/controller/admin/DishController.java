@@ -122,7 +122,7 @@ public class DishController {
     }
 
     /**
-     * 根据分类id查询菜品
+     * 根据分类id查询菜品（day04）
      * 
      * @param categoryId
      * @return
@@ -133,6 +133,11 @@ public class DishController {
         return Result.success(dishList);
     }
 
+    /**
+     * 清理缓存数据
+     *
+     * @param keys
+     */
     private void clearRedis(String keys) {
         Set<String> cacheKeys = redisTemplate.keys(keys);
         redisTemplate.delete(cacheKeys);

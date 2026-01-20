@@ -13,7 +13,7 @@ public interface SetmealDishMapper {
     /**
      * 根据菜品id查询套餐id
      * 
-     * @param dishId
+     * @param dishIds
      * @return
      */
     List<Long> getSetmealIdByDishIds(List<Long> dishIds);
@@ -23,6 +23,7 @@ public interface SetmealDishMapper {
      * 
      * @param setmealDishes
      */
+    //select setmeal_id from setmeal_dish where dish_id in (1,2,3,4)
     void insertBatch(List<SetmealDish> setmealDishes);
 
     /**

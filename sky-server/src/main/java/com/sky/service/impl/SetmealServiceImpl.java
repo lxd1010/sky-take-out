@@ -44,7 +44,7 @@ public class SetmealServiceImpl implements SetmealService {
      * @param setmealDTO
      */
     @Override
-    @Transactional
+    @Transactional// 添加事务
     public void saveWithDish(SetmealDTO setmealDTO) {
         Setmeal setmeal = new Setmeal();
         BeanUtils.copyProperties(setmealDTO, setmeal);
@@ -60,7 +60,7 @@ public class SetmealServiceImpl implements SetmealService {
             setmealDish.setSetmealId(setmealId);
         });
 
-        // 保存套餐和菜品的关联关系
+        // 保存套餐和菜品的关联关系（加入菜品集合）
         setmealDishMapper.insertBatch(setmealDishes);
     }
 
@@ -151,7 +151,7 @@ public class SetmealServiceImpl implements SetmealService {
         // 有停售菜品提示"套餐内包含未启售菜品，无法启售"
         if (status == StatusConstant.ENABLE) {
             List<Dish> dishList = dishMapper.getBySetmealId(id);
-            if (dishList != null && dishList.size() > 0) {
+            if (dishList != null && !dishList.isEmpty()) {
                 dishList.forEach(dish -> {
                     if (dish.getStatus() == StatusConstant.DISABLE) {
                         throw new SetmealEnableFailedException(MessageConstant.SETMEAL_ENABLE_FAILED);
@@ -171,8 +171,7 @@ public class SetmealServiceImpl implements SetmealService {
      * @return
      */
     public List<Setmeal> list(Setmeal setmeal) {
-        List<Setmeal> list = setmealMapper.list(setmeal);
-        return list;
+        return setmealMapper.list(setmeal);
     }
 
     /**
